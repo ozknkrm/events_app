@@ -38,18 +38,7 @@
             @endif
         </div> 
 
-        <div>
-             @foreach ($events as $event)
-             <div class="card" style="width: 18rem;">
-                <img src= {{ $event->img }} class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $event->name }} </h5>
-                        <p class="card-text">{{$event->description}}</p>
-                        <p class="card-text">{{$event->spaces}}</p>
-                    </div>
-             </div>   
-             @endforeach
-        </div>
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     </body>
 </html>

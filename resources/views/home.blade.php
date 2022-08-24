@@ -1,23 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
+        @foreach ($events as $event)
+        <div class="card" style="width: 18rem;">
+        <img src= {{ $event->img }} class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ $event->name }} </h5>
+                <p class="card-text">{{$event->description}}</p>
+                <p class="card-text">{{$event->spaces}}</p>
             </div>
-        </div>
-    </div>
-</div>
+        </div>   
+       
+            <form action="{{ route('delete',['id' =>$event->id] )}}" method="post">
+            @method('delete')
+            @csrf
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this event? {{$event->name}}')">
+            🗑️ 
+            </button>
+            </form>
+        
+        @endforeach
+
 @endsection

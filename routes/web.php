@@ -18,7 +18,13 @@ use App\Http\Controllers\EventController;
     return view('welcome');
 });
 */
-Route::get('/', [Eventcontroller::class,'index']);
+
+
+Route::get('/', [Eventcontroller::class,'index'])->name('homepage');
+
+Route::delete('/delete/¨{id}', [Eventcontroller::class,'destroy'])->name('delete');
+
 Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
