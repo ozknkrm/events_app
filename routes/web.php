@@ -27,6 +27,9 @@ Route::delete('/delete/¨{id}', [Eventcontroller::class, 'destroy'])->name('dele
 //create
 Route::get('/create', [Eventcontroller::class, 'create'])->name('createEvent');
 Route::post('/', [Eventcontroller::class, 'store'])->name('storeEvent');
+//update
+Route::get('/edit/{id}', [Eventcontroller::class, 'edit'])->name('editEvent');
+Route::patch('/event/{id}', [Eventcontroller::class, 'update'])->name('updateEvent');
 
 
 

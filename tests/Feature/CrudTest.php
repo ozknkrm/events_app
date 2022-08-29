@@ -55,4 +55,19 @@ class CrudTest extends TestCase
         ]);
         $this->assertCount(1, Event::all());
     }
+
+    public function test_an_event_can_be_updated(){
+        $this->withExceptionHandling();
+        
+        $event = Event::factory()->create();
+
+        $this->assertCount(1, Event::all());
+
+        $response = $this->patch(route('updateEvent', $event->id), ['name' => 'New Name']);
+        $response = $this->patch(route('updateEvent', $event->id), ['description' => 'New Description']);
+
+        $this->assertEquals('New Name', Event::first()->name);
+        $this->assertEquals('New Description', Event::first()->description);
+
+    }
 }
