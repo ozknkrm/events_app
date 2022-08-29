@@ -43,4 +43,16 @@ class CrudTest extends TestCase
         
 
     }
+
+    public function test_an_event_can_be_created(){
+        $this->withDeprecationHandling();
+
+        $response = $this->post(route('storeEvent'),[
+            'name' => 'new name',
+            'description' => 'new description',
+            'img' => 'new img',
+            'spaces' => '50'
+        ]);
+        $this->assertCount(1, Event::all());
+    }
 }

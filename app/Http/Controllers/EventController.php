@@ -30,6 +30,7 @@ class EventController extends Controller
     public function create()
     {
         //
+        return view ('createEvent');
     }
 
     /**
@@ -41,6 +42,21 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+
+        $event = request()->except('__token'); 
+
+        // $event = Event::create(
+        //     [
+        //         'name' => $request->name,
+        //         'description' => $request->description,
+        //         'img' => $request->img,
+        //         'spaces' => $request->spaces,
+        //     ]
+        // );
+        Event::create($event);
+
+        return redirect()->route('home');
+
     }
 
     /**
@@ -89,6 +105,6 @@ class EventController extends Controller
 
         Event::destroy($id);
 
-        return redirect()->route('homepage');
+        return redirect()->route('home');
     }
 }

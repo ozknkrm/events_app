@@ -14,17 +14,21 @@ use App\Http\Controllers\EventController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
-
-Route::get('/', [Eventcontroller::class,'index'])->name('homepage');
-
-Route::delete('/delete/¨{id}', [Eventcontroller::class,'destroy'])->name('delete');
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Auth::routes();
+
+Route::get('/home', [Eventcontroller::class, 'index']);
+Route::get('/', [Eventcontroller::class, 'index'])->name('home');
+//delete
+Route::delete('/delete/¨{id}', [Eventcontroller::class, 'destroy'])->name('delete');
+//create
+Route::get('/create', [Eventcontroller::class, 'create'])->name('createEvent');
+Route::post('/', [Eventcontroller::class, 'store'])->name('storeEvent');
+
+
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

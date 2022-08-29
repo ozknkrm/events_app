@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         //se ejecutan en orden
         Event::factory()->create(['name' => 'Run Club', 'description' => 'Evento para quedarte en forma y conocer gente', 'img'=>'https://tophealth.es/wp-content/uploads/2018/06/beneficios-de-correr-780x400.jpg', 'spaces'=>10]);
-        Event::factory(5)->create();
+        Event::factory()->create(['name' => 'Run Club', 'description' => 'Evento para quedarte en forma y conocer gente', 'img'=>'https://tophealth.es/wp-content/uploads/2018/06/beneficios-de-correr-780x400.jpg', 'spaces'=>10]);
+       // Event::factory(5)->create();
 
     }
 }
