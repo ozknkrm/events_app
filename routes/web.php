@@ -30,7 +30,8 @@ Route::post('/', [Eventcontroller::class, 'store'])->name('storeEvent');
 //update
 Route::get('/edit/{id}', [Eventcontroller::class, 'edit'])->name('editEvent');
 Route::patch('/event/{id}', [Eventcontroller::class, 'update'])->name('updateEvent');
-
+//show
+Route::get('/show/{id}', [Eventcontroller::class, 'show'])->name('showEvent');
 
 
 
