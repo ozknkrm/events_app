@@ -23,13 +23,13 @@ Auth::routes();
 Route::get('/home', [Eventcontroller::class, 'index']);
 Route::get('/', [Eventcontroller::class, 'index'])->name('home');
 //delete
-Route::delete('/delete/¨{id}', [Eventcontroller::class, 'destroy'])->name('delete');
+Route::delete('/delete/¨{id}', [Eventcontroller::class, 'destroy'])->name('delete')->middleware('isadmin','auth');
 //create
-Route::get('/create', [Eventcontroller::class, 'create'])->name('createEvent');
-Route::post('/', [Eventcontroller::class, 'store'])->name('storeEvent');
+Route::get('/create', [Eventcontroller::class, 'create'])->name('createEvent')->middleware('isadmin','auth');
+Route::post('/', [Eventcontroller::class, 'store'])->name('storeEvent')->middleware('isadmin','auth');
 //update
-Route::get('/edit/{id}', [Eventcontroller::class, 'edit'])->name('editEvent');
-Route::patch('/event/{id}', [Eventcontroller::class, 'update'])->name('updateEvent');
+Route::get('/edit/{id}', [Eventcontroller::class, 'edit'])->name('editEvent')->middleware('isadmin','auth');
+Route::patch('/event/{id}', [Eventcontroller::class, 'update'])->name('updateEvent')->middleware('isadmin','auth');
 //show
 Route::get('/show/{id}', [Eventcontroller::class, 'show'])->name('showEvent');
 

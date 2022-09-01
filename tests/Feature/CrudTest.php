@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Event;
+use App\Models\User;
 class CrudTest extends TestCase
 {
     /**
@@ -35,11 +36,21 @@ class CrudTest extends TestCase
         $this->withExceptionHandling();
 
         $event = Event::factory()->create();
-
         $this->assertCount(1, Event::all());
-        $response = $this->delete(route('delete', $event->id));
 
+        $userNoAdmin = User::factory()->create(['isAdmin' => false]);
+        $this->actingAs($userNoAdmin);
+        $response = $this->delete(route('delete', $event->id));
+        $this->assertCount(1, Event::all());
+
+        
+
+        $userAdmin = User::factory()->create(['isAdmin' => true]);
+        $this->actingAs($userAdmin);
+        $response = $this->delete(route('delete', $event->id));
         $this->assertCount(0, Event::all());
+        
+
         
 
     }
@@ -47,6 +58,19 @@ class CrudTest extends TestCase
     public function test_an_event_can_be_created(){
         $this->withDeprecationHandling();
 
+
+        $userAdmin = User::factory()->create(['isAdmin' => true]);
+        $this->actingAs($userAdmin);
+        $response = $this->post(route('storeEvent'),[
+            'name' => 'new name',
+            'description' => 'new description',
+            'img' => 'new img',
+            'spaces' => '50'
+        ]);
+        $this->assertCount(1, Event::all());
+
+        $userNoAdmin = User::factory()->create(['isAdmin' => false]);
+        $this->actingAs($userNoAdmin);
         $response = $this->post(route('storeEvent'),[
             'name' => 'new name',
             'description' => 'new description',
@@ -62,9 +86,19 @@ class CrudTest extends TestCase
         $event = Event::factory()->create();
 
         $this->assertCount(1, Event::all());
-
+        
+        $userAdmin = User::factory()->create(['isAdmin' => true]);
+        $this->actingAs($userAdmin);
         $response = $this->patch(route('updateEvent', $event->id), ['name' => 'New Name']);
         $response = $this->patch(route('updateEvent', $event->id), ['description' => 'New Description']);
+
+        $this->assertEquals('New Name', Event::first()->name);
+        $this->assertEquals('New Description', Event::first()->description);
+
+        $userNoAdmin = User::factory()->create(['isAdmin' => false]);
+        $this->actingAs($userNoAdmin);
+        $response = $this->patch(route('updateEvent', $event->id), ['name' => 'New Name No Admin']);
+        $response = $this->patch(route('updateEvent', $event->id), ['description' => 'New Description No Admin']);
 
         $this->assertEquals('New Name', Event::first()->name);
         $this->assertEquals('New Description', Event::first()->description);
