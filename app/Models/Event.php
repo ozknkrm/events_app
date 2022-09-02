@@ -18,4 +18,7 @@ class Event extends Model
         'spaces',
 
     ];
+    public function user(){
+        return $this->belongsToMany(User::class);
+    }
 }

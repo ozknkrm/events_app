@@ -36,6 +36,9 @@
                     </a>
                     
                 </form>
+
+                <button><a class="text-warning" href="{{ route('inscribe', $event->id) }}">Inscribe</a></button>
+                <button><a class="text-warning" href="{{ route('cancelInscribe', $event->id) }}">cancelInscribe</a></button>
             </div>
             @endforeach
         </div>

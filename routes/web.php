@@ -20,8 +20,8 @@ use App\Http\Controllers\EventController;
 
 Auth::routes();
 
-Route::get('/home', [Eventcontroller::class, 'index']);
-Route::get('/', [Eventcontroller::class, 'index'])->name('home');
+Route::get('/home', [Eventcontroller::class, 'index'])->name('home');
+Route::get('/', [Eventcontroller::class, 'index']);
 //delete
 Route::delete('/delete/¨{id}', [Eventcontroller::class, 'destroy'])->name('delete')->middleware('isadmin','auth');
 //create
@@ -35,4 +35,9 @@ Route::get('/show/{id}', [Eventcontroller::class, 'show'])->name('showEvent');
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//pivot routes
+//inscribirse
+Route::get('/inscribe/{id}', [EventController::class, 'inscribe'])->middleware('auth')->name('inscribe');
+Route::get('/cancelInscribe/{id}', [EventController::class, 'cancelInscribe'])->middleware('auth')->name('cancelInscribe');
